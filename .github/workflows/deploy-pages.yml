@@ -36,7 +36,7 @@ jobs:
       - name: Build static site
         run: npm run build:pages
         env:
-          VITE_LOBBY_API_ORIGIN: ${{ vars.VITE_LOBBY_API_ORIGIN }}
+          VITE_LOBBY_API_ORIGIN: ${{ vars.VITE_LOBBY_API_ORIGIN || 'https://macbook-pro-von-ans.tail69ecfd.ts.net' }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
