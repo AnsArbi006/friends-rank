@@ -7,13 +7,15 @@ import { friendQuestions } from '@/lib/game';
 import type { ClientEvent, GameMode, Player, QuestionSource, RoomState, Settings } from '@/shared/room-types';
 
 const avatars = ['😎', '🐸', '🦊', '👽', '🐙', '🐧', '🦄', '🧃'];
-const apiOrigin = (import.meta.env.VITE_LOBBY_API_ORIGIN || 'https://serverarbi.tail69ecfd.ts.net').replace(/\/$/, '');
+// The published game always uses the internet-facing server. Players never need
+// to enter an address or configure their network.
+const apiOrigin = 'https://serverarbi.tail69ecfd.ts.net';
 type Screen = 'home' | 'profile' | 'code' | 'lobby' | 'questions' | 'countdown' | 'ranking' | 'waiting' | 'reveal' | 'finished' | 'guess-writing' | 'guessing' | 'guess-reveal';
 type Session = { code: string; playerId: string; token: string };
 const defaultSettings: Settings = { questionCount: 3, customQuestionsPerPlayer: 1, mode: 'friends', questionSource: 'preset' };
 
 function insert<T>(items: T[], from: number, to: number) { const next = [...items]; next.splice(to, 0, next.splice(from, 1)[0]); return next; }
-function api(path: string, init?: RequestInit) { if (!apiOrigin) throw new Error('Der Multiplayer-Server ist noch nicht eingerichtet.'); return fetch(`${apiOrigin}${path}`, { headers: { 'Content-Type': 'application/json' }, ...init }); }
+function api(path: string, init?: RequestInit) { return fetch(`${apiOrigin}${path}`, { headers: { 'Content-Type': 'application/json' }, ...init }); }
 
 export default function Home() {
   const [screen, setScreen] = useState<Screen>('home'); const [name, setName] = useState(''); const [avatar, setAvatar] = useState('😎'); const [code, setCode] = useState(''); const [joinCode, setJoinCode] = useState(''); const [session, setSession] = useState<Session | null>(null); const [room, setRoom] = useState<RoomState | null>(null); const [error, setError] = useState(''); const [booting, setBooting] = useState(true); const [questions, setQuestions] = useState(['', '', '', '', '']); const [order, setOrder] = useState<string[]>([]); const [submittedRanking, setSubmittedRanking] = useState(false); const [guessText, setGuessText] = useState(''); const [guessTarget, setGuessTarget] = useState(''); const [guessAnswer, setGuessAnswer] = useState(''); const [guessSubmitted, setGuessSubmitted] = useState(false); const [soundOn, setSoundOn] = useState(false); const socket = useRef<WebSocket | null>(null); const audio = useRef<AudioContext | null>(null);
