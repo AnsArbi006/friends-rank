@@ -49,7 +49,7 @@ test('runs Guess The Friend with private roles and rejects duplicate answers', a
   await new Promise((resolve) => setTimeout(resolve, 100));
   const guesser = author === 0 ? 1 : 0;
   const guessingRoom = events[guesser].find((event) => event.room?.phase === 'guessing').room;
-  assert.equal(guessingRoom.guessRole, 'detective');
+  assert.equal(guessingRoom.guessRole, 'participant');
   assert.equal(guessingRoom.guessOptions.includes(target), true);
   sockets[guesser].send(JSON.stringify({ type: 'guess_answer_submitted', targetId: target }));
   sockets[guesser].send(JSON.stringify({ type: 'guess_answer_submitted', targetId: target }));
