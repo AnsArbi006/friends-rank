@@ -1,4 +1,4 @@
-export type GameMode = 'friends' | 'guess' | 'guessFriend';
+export type GameMode = 'friends' | 'guessFriend';
 export type QuestionSource = 'preset' | 'custom';
 export type RoomPhase = 'lobby' | 'question_draft' | 'countdown' | 'ranking' | 'waiting' | 'reveal' | 'finished' | 'clue_writing' | 'guessing' | 'guess_reveal';
 
