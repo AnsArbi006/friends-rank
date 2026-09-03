@@ -1,0 +1,7 @@
+{
+  "name": "friends-rank-server",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node index.js", "test": "node --test test/*.test.js" },
+  "dependencies": { "ws": "^8.19.0" }
+}

@@ -1,0 +1,30 @@
+services:
+  friends-rank-api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      PORT: 8787
+      DATA_FILE: /data/rooms.json
+      CORS_ORIGIN: ${CORS_ORIGIN:-https://ansarbi006.github.io}
+    volumes:
+      - friends-rank-data:/data
+    restart: unless-stopped
+    networks: [friends-rank]
+  caddy:
+    image: caddy:2-alpine
+    profiles: [public]
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [friends-rank-api]
+    restart: unless-stopped
+    networks: [friends-rank]
+volumes:
+  friends-rank-data:
+  caddy-data:
+  caddy-config:
+networks:
+  friends-rank:
