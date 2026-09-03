@@ -34,7 +34,7 @@ export default function Home() {
   const results = calculateBordaResults(players, [order, ['mika', 'ali', 'sam', 'you'], ['ali', 'you', 'mika', 'sam'], ['sam', 'mika', 'ali', 'you']], true);
   const startGame = () => { setOrder(players.map((player) => player.id)); setRevealCount(0); setScreen('ranking'); };
 
-  return <main className="game-shell">
+  return <main className={`game-shell screen-${screen}`}>
     <div className="orb orb-one" /><div className="orb orb-two" />
     <header className="topbar">
       <button className="brand" onClick={() => setScreen('home')} aria-label="Friends Rank Startseite"><span className="brand-mark"><Crown size={20} fill="currentColor" /></span><span>FRIENDS<br />RANK</span></button>
