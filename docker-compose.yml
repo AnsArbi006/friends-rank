@@ -9,6 +9,8 @@ services:
       CORS_ORIGIN: ${CORS_ORIGIN:-https://ansarbi006.github.io}
     volumes:
       - friends-rank-data:/data
+    ports:
+      - "127.0.0.1:8787:8787"
     restart: unless-stopped
     networks: [friends-rank]
   caddy:
