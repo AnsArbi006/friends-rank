@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Crown, Lightbulb, Music2, Send, Share2, Sparkles, UsersRound, Volume2, VolumeX, X } from 'lucide-react';
+import { ArrowLeft, Crown, Lightbulb, Music2, Send, Share2, Sparkles, UsersRound, Volume2, VolumeX, X } from 'lucide-react';
 import { calculateBordaResults, friendQuestions, rankingCategories, type Player } from '@/lib/game';
 
 const avatars = ['😎', '🐸', '🦊', '👽', '🐙', '🐧', '🦄', '🧃'];
@@ -31,10 +31,11 @@ export default function Home() {
   const results = calculateBordaResults(players, [order, ['mika', 'ali', 'sam', 'you'], ['ali', 'you', 'mika', 'sam'], ['sam', 'mika', 'ali', 'you']], true);
   const startGame = () => { setOrder(players.map((player) => player.id)); setRevealCount(0); setScreen(questionSource === 'custom' ? 'question-draft' : 'ranking'); };
   const joinLobby = () => { if (roomInput.length >= 5) { setName('Gast'); setJoinOpen(false); setScreen('lobby'); } };
+  const goBack = () => setScreen({ identity: 'home', lobby: 'home', 'question-draft': 'lobby', ranking: 'lobby', waiting: 'ranking', reveal: 'waiting', final: 'lobby' }[screen] ?? 'home');
 
   return <main className={`game-shell screen-${screen}`}>
     <div className="orb orb-one" /><div className="orb orb-two" />
-    <header className="topbar"><button className="brand" onClick={() => setScreen('home')} aria-label="Friends Rank Startseite"><span className="brand-mark"><Crown size={20} fill="currentColor" /></span><span>FRIENDS<br />RANK</span></button>{screen !== 'home' && <span className="room-code">RAUM <b>F7K2Q</b></span>}<button className="icon-button" onClick={() => setSound(!sound)} aria-label="Sound umschalten">{sound ? <Volume2 size={20} /> : <VolumeX size={20} />}</button></header>
+    <header className="topbar">{screen !== 'home' && <button className="back-button" onClick={goBack} aria-label="Zurück"><ArrowLeft size={20} /></button>}<button className="brand" onClick={() => setScreen('home')} aria-label="Friends Rank Startseite"><span className="brand-mark"><Crown size={20} fill="currentColor" /></span><span>FRIENDS<br />RANK</span></button>{screen !== 'home' && <span className="room-code">RAUM <b>F7K2Q</b></span>}<button className="icon-button" onClick={() => setSound(!sound)} aria-label="Sound umschalten">{sound ? <Volume2 size={20} /> : <VolumeX size={20} />}</button></header>
 
     {screen === 'home' && <section className="home-screen screen-enter"><div className="hero-copy"><p className="kicker"><Sparkles size={16} /> DAS PARTY-GAME FÜR DEINE CREW</p><h1>WAS DENKEN<br />DEINE FREUNDE<br /><span>WIRKLICH?</span></h1><p className="lede">Rankt euch gegenseitig. Diskutiert die Ergebnisse. Bereut nichts.</p><div className="hero-actions"><button className="button button-primary" onClick={() => setScreen('identity')}>SPIEL ERSTELLEN <span>→</span></button><button className="button button-secondary" onClick={() => setJoinOpen(true)}>LOBBY BEITRETEN</button></div><p className="microcopy">Kein Account. Kein Download. Nur eure Gruppe.</p></div><div className="hero-stack" aria-hidden="true"><div className="sticker sticker-crown">👑</div><article className="floating-card card-ali"><span>🐸</span><strong>ALI</strong><small>Most chaotic</small></article><article className="floating-card card-mika"><span>🦊</span><strong>MIKA</strong><small>Would survive</small></article><article className="floating-card card-you"><span>😎</span><strong>DU?</strong><small>Find out</small></article><div className="burst">?!</div></div></section>}
 
