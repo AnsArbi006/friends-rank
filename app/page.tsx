@@ -7,7 +7,7 @@ import { friendQuestions } from '@/lib/game';
 import type { ClientEvent, GameMode, Player, QuestionSource, RoomState, Settings } from '@/shared/room-types';
 
 const avatars = ['😎', '🐸', '🦊', '👽', '🐙', '🐧', '🦄', '🧃'];
-const apiOrigin = (import.meta.env.VITE_LOBBY_API_ORIGIN || 'https://macbook-pro-von-ans.tail69ecfd.ts.net').replace(/\/$/, '');
+const apiOrigin = (import.meta.env.VITE_LOBBY_API_ORIGIN || 'https://serverarbi.tail69ecfd.ts.net').replace(/\/$/, '');
 type Screen = 'home' | 'profile' | 'code' | 'lobby' | 'questions' | 'countdown' | 'ranking' | 'waiting' | 'reveal' | 'finished' | 'guess-writing' | 'guessing' | 'guess-reveal';
 type Session = { code: string; playerId: string; token: string };
 const defaultSettings: Settings = { questionCount: 3, customQuestionsPerPlayer: 1, mode: 'friends', questionSource: 'preset' };
